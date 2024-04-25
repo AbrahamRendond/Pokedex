@@ -1,0 +1,121 @@
+#titulos {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: fantasy;
+    background-image: url(https://th.bing.com/th/id/R.57b7cdbd2ff4665c5cb8f50f4af429a8?rik=K7QBX8afl%2b1mWw&pid=ImgRaw&r=0);
+    background-repeat: no-repeat;
+    background-position: center;
+    color: transparent;
+    background-clip: text;
+    font-size: 8em;
+    -webkit-text-stroke: 5px black;
+}
+
+body {
+    background-image: url(./fondo.gif);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+#container {
+    display: flex;
+    flex-wrap: wrap;
+    position: relative;
+    height: auto;
+    justify-content: center;
+    padding: 20px;
+}
+
+#buscador {
+    padding: 10px;
+    margin: 10px;
+    width: 95%;
+}
+
+#lista {
+    width: 50%;
+    overflow-y: scroll;
+    height: 500px;
+    padding: 10px;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 20px;
+    position: absolute;
+    left: 23%;
+    border: 5px solid white;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: space-around;
+
+}
+
+.generacion-g1 {
+    border: 2px solid #1e9c12;
+    border-radius: 5px;
+    box-shadow: 2px 2px 5px #1e9c12(0, 0, 0, 0.2);
+}
+.generacion-g2 {
+    border: 2px solid #fc0000;
+    border-radius: 5px;
+    box-shadow: 2px 2px 5px #fc0000(0, 0, 0, 0.2);
+}
+
+#detalles {
+    font-family: sans-serif;
+    font-size: large;
+    width: 25%;
+    padding-left: 20px;
+    position: absolute;
+    right: 35%;
+    background-color: rgb(226, 224, 221);
+    margin-top: 3%;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.pokemon-card {
+    width: 30%;
+    height: 30%;
+    padding: 10px;
+    background-color: #f9f9f9;
+    transition: transform 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-image: url(https://seeklogo.com/images/B/bulbasaur-logo-8A27924C02-seeklogo.com.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.pokemon-card:hover {
+    transform: scale(1.05);
+    cursor: pointer;
+}
+
+.tipo-Normal, .tipo-Fuego, .tipo-Agua, .tipo-Eléctrico, .tipo-Planta, .tipo-Hielo, .tipo-Lucha, .tipo-Veneno, .tipo-Tierra, .tipo-Roca, .tipo-Volador, .tipo-Psíquico, .tipo-Bicho, .tipo-Fantasma, .tipo-Dragon, .tipo-Dragón, .tipo-Siniestro, .tipo-Acero, .tipo-Hada {
+    color: white;
+    padding: 3px;
+    border-radius: 5px;
+}
+
+.tipo-Normal { background-color: #A8A77A; border: #999600 solid 2px; }
+.tipo-Fuego { background-color: #EE8130; border: #ff6f00 solid 2px; }
+.tipo-Agua { background-color: #6390F0; border: #0051ff solid 2px; }
+.tipo-Eléctrico { background-color: #F7D02C; border: #ffcc00 solid 2px; }
+.tipo-Planta { background-color: #7AC74C; border: #5eff00 solid 2px; }
+.tipo-Hielo { background-color: #96D9D6; border: #00fff2 solid 2px; }
+.tipo-Lucha { background-color: #C22E28; border: #ff0800 solid 2px; }
+.tipo-Veneno { background-color: #A33EA1; border: #b402b1 solid 2px; }
+.tipo-Tierra, .tipo-Roca { background-color: #E2BF65; border: #ffb700 solid 2px; }
+.tipo-Volador { background-color: #A98FF3; border: #4400ff solid 2px; }
+.tipo-Psíquico { background-color: #F95587; border: #ff004c solid 2px; }
+.tipo-Bicho { background-color: #A6B91A; border: #e1ff00 solid 2px; }
+.tipo-Fantasma { background-color: #735797; border: #8835f5 solid 2px; }
+.tipo-Dragon, .tipo-Dragón { background-color: #6F35FC; border: #4800ff solid 2px; }
+.tipo-Siniestro { background-color: #705746; border: #c26629 solid 2px; }
+.tipo-Acero { background-color: #B7B7CE; border: #4d4df7 solid 2px; }
+.tipo-Hada { background-color: #D685AD; border: #ff4ba5 solid 2px; }

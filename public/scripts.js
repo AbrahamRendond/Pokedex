@@ -48,6 +48,16 @@ document.addEventListener('DOMContentLoaded', function() {
 
 });
 
+document.addEventListener("click", function(e){
+    const detcerrar = document.getElementById('detalles');
+
+    //detcerrar.style.display="none"
+    const cerrar = detcerrar.contains(e.target)
+    if(cerrar){
+        detcerrar.style.display="none"
+    }
+})
+
 function BuscarPokemon() {
     var entrada = document.getElementById('buscador');
     var filtro = entrada.value.toUpperCase();

@@ -27,6 +27,14 @@ body {
     padding: 20px;
 }
 
+img{
+    padding-right: 30%;
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 100%;
+}
+
 #buscador {
     padding: 10px;
     margin: 10px;
@@ -36,7 +44,8 @@ body {
 #lista {
     width: 50%;
     overflow-y: scroll;
-    height: 450px;
+    overflow-x: hidden;
+    height: calc(100vh - 250px);
     padding: 10px;
     background-color: rgba(255, 255, 255, 0.8);
     border-radius: 10px;
@@ -49,15 +58,16 @@ body {
     flex-wrap: wrap;
     align-items: flex-start;
     justify-content: space-around;
+    perspective: 1000px;
 
 }
 
-.generacion-g1 {
+.generacion-1 {
     border: 2px solid #1e9c12;
     border-radius: 5px;
     box-shadow: 2px 2px 5px #1e9c12(0, 0, 0, 0.2);
 }
-.generacion-g2 {
+.generacion-2 {
     border: 2px solid #fc0000;
     border-radius: 5px;
     box-shadow: 2px 2px 5px #fc0000(0, 0, 0, 0.2);
@@ -66,20 +76,36 @@ body {
 #detalles {
     font-family: sans-serif;
     font-size: large;
-    width: 25%;
+    width: 50%;
     padding-left: 20px;
     position: absolute;
-    right: 35%;
+    right: 24.6%;
     background-color: rgb(226, 224, 221);
     margin-top: 3%;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: all .3s ease-in;
 }
+.detalle-flex-container {
+    display: flex;
+    align-items: center;
+}
+
+.detalle-imagen {
+    width: auto;
+    height: auto;
+    max-width: 50%;
+    max-height: 50%;
+    flex: 0 0 auto;
+    padding-right: 20px;
+}
+
+.detalle-info {
+    flex: 1;
+}
 
 #detalles:hover{
     transform: perspective(250px)
-    
     translateY(-5%)
     translateZ(0);
 }
@@ -87,7 +113,7 @@ body {
     content: '';
     position: absolute;
     bottom: 0;
-    height: 100%;
+    height: 50%;
     width: 100%;
     right: 0;
     background-image: 
@@ -104,24 +130,24 @@ body {
     opacity: 1;
 }
 
-
 .pokemon-card {
     width: 30%;
     height: 30%;
     padding: 10px;
     background-color: #f9f9f9;
-    transition: transform 0.2s;
     display: flex;
     align-items: center;
     justify-content: center;
-    background-image: url(https://seeklogo.com/images/B/bulbasaur-logo-8A27924C02-seeklogo.com.png);
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
+
+    transition: transform 0.5s ease;
+    transform: rotateX(0) rotateY(0) scale(1);
+    transform-style: preserve-3d;
 }
 
 .pokemon-card:hover {
-    transform: scale(1.05);
     cursor: pointer;
 }
 

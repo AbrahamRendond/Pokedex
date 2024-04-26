@@ -10,8 +10,10 @@ document.addEventListener('DOMContentLoaded', function() {
                         pokemonIcono.classList.add('pokemon-card', `generacion-${pokemon.generacion}`);
                         pokemonIcono.innerHTML = `
                             <h2>${pokemon.nombre}</h2>
+                            <img src="${pokemon.imagen}" alt="${pokemon.numero_pokedex}">
                         `;
-                        pokemonIcono.onclick = function() {
+                        pokemonIcono.onclick = function(event) {
+                            event.stopPropagation();
                             Actualizar(pokemon);
                         };
                         ListaPokemon.appendChild(pokemonIcono);
@@ -31,6 +33,12 @@ document.addEventListener('DOMContentLoaded', function() {
         }).join(', ');
 
         DetallesPokemon.innerHTML = `
+
+        <div class="detalle-flex-container">
+        <div class="detalle-imagen">
+            <img src="${pokemon.imagen}" alt="${pokemon.nombre}">
+        </div>
+        <div class="detalle-info">
             <h2>${pokemon.nombre} (#${pokemon.numero_pokedex})</h2>
             <p>${pokemon.descripcion}</p>
             <p>Tipo: ${tipos}</p>
@@ -41,22 +49,29 @@ document.addEventListener('DOMContentLoaded', function() {
             <p>Stamina: ${pokemon.stamina}</p>
             <p>Debilidades: ${debilidades}</p>
             <p>Generacion: ${pokemon.generacion}</p>
-
-            
+        </div>
+        </div>
+         
         `;
+
+        DetallesPokemon.style.display = "block";
+
+        document.querySelectorAll('.pokemon-card').forEach(card => {
+            card.addEventListener('mousemove', tiltEffect);
+            card.addEventListener('mouseleave', resetTiltEffect);
+            card.addEventListener('mouseenter', startTiltEffect);
+        });
+
     }
 
 });
 
 document.addEventListener("click", function(e){
-    const detcerrar = document.getElementById('detalles');
-
-    //detcerrar.style.display="none"
-    const cerrar = detcerrar.contains(e.target)
-    if(cerrar){
-        detcerrar.style.display="none"
+    const detalles = document.getElementById('detalles');
+    if (!detalles.contains(e.target) && detalles.style.display !== "none") {
+        detalles.style.display = "none";
     }
-})
+});
 
 function BuscarPokemon() {
     var entrada = document.getElementById('buscador');
@@ -75,4 +90,27 @@ function BuscarPokemon() {
             }
         }
     }
+}
+
+
+function tiltEffect(e) {
+    const rect = this.getBoundingClientRect();
+    const x = e.clientX - rect.left - rect.width / 2;
+    const y = e.clientY - rect.top - rect.height / 2;
+
+    // Máximo ángulo de rotación
+    const maxAngle = 15;
+
+    const tiltX = (y / rect.height) * maxAngle * 2;
+    const tiltY = (x / rect.width) * maxAngle * -2;
+
+    this.style.transform = `rotateX(${tiltX}deg) rotateY(${tiltY}deg) scale(1.05)`;
+}
+
+function resetTiltEffect(e) {
+    this.style.transform = 'rotateX(0deg) rotateY(0deg) scale(1)';
+}
+
+function startTiltEffect(e) {
+    this.style.transition = 'transform 0.1s ease-out';
 }

@@ -62,12 +62,12 @@ img{
 
 }
 
-.generacion-1 {
+.generacion-g1 {
     border: 2px solid #1e9c12;
     border-radius: 5px;
     box-shadow: 2px 2px 5px #1e9c12(0, 0, 0, 0.2);
 }
-.generacion-2 {
+.generacion-g2 {
     border: 2px solid #fc0000;
     border-radius: 5px;
     box-shadow: 2px 2px 5px #fc0000(0, 0, 0, 0.2);
@@ -98,6 +98,7 @@ img{
     max-height: 50%;
     flex: 0 0 auto;
     padding-right: 20px;
+
 }
 
 .detalle-info {
@@ -126,6 +127,21 @@ img{
     opacity: 0;
     transition: all .3s ease;
 }
+#close{
+    position: absolute;
+    top: 0;
+    left: 85.76543%;
+    height: 50px;
+    width: 50px;
+    scale: 0.5;
+}
+#close:hover{
+    filter: drop-shadow(10px 100px 100px black);
+    scale:0.52;
+    
+    transition: 0.5s ease;
+}
+
 #detalles:hover::before{
     opacity: 1;
 }
@@ -141,7 +157,6 @@ img{
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
-
     transition: transform 0.5s ease;
     transform: rotateX(0) rotateY(0) scale(1);
     transform-style: preserve-3d;
@@ -149,7 +164,25 @@ img{
 
 .pokemon-card:hover {
     cursor: pointer;
+    
 }
+#lista:hover > :not(:hover){
+
+    opacity: 0.6;
+    transition: 0.5s ease;
+    
+    
+    
+}
+#lista::before{
+
+    opacity: 0.6;
+    transition: 0.5s ease;
+    
+    
+    
+}
+
 
 .tipo-Normal, .tipo-Fuego, .tipo-Agua, .tipo-Eléctrico, .tipo-Planta, .tipo-Hielo, .tipo-Lucha, .tipo-Veneno, .tipo-Tierra, .tipo-Roca, .tipo-Volador, .tipo-Psíquico, .tipo-Bicho, .tipo-Fantasma, .tipo-Dragon, .tipo-Dragón, .tipo-Siniestro, .tipo-Acero, .tipo-Hada {
     color: white;

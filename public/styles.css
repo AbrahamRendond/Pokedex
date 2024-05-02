@@ -5,6 +5,7 @@
     font-family: fantasy;
     background-image: url(https://th.bing.com/th/id/R.57b7cdbd2ff4665c5cb8f50f4af429a8?rik=K7QBX8afl%2b1mWw&pid=ImgRaw&r=0);
     background-repeat: no-repeat;
+    
     background-position: center;
     color: transparent;
     background-clip: text;
@@ -62,7 +63,7 @@ img{
 
 }
 
-.generacion-g1 {
+.generacion-1 {
     border: 2px solid #1e9c12;
     border-radius: 5px;
     box-shadow: 2px 2px 5px #1e9c12(0, 0, 0, 0.2);
@@ -139,7 +140,7 @@ img{
     filter: drop-shadow(10px 100px 100px black);
     scale:0.52;
     
-    transition: 0.5s ease;
+    transition: all 0.5s ease-in-out;
 }
 
 #detalles:hover::before{
@@ -164,20 +165,14 @@ img{
 
 .pokemon-card:hover {
     cursor: pointer;
+
+
     
 }
 #lista:hover > :not(:hover){
 
-    opacity: 0.6;
-    transition: 0.5s ease;
-    
-    
-    
-}
-#lista::before{
-
-    opacity: 0.6;
-    transition: 0.5s ease;
+    opacity: 0.7;
+    transition: 0.5s ease-in-out;
     
     
     

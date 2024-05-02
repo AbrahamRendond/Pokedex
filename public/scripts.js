@@ -7,10 +7,14 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(pokemonLista => {
                     pokemonLista.forEach(pokemon => {
                         const pokemonIcono = document.createElement('div');
+                        const imagen = pokemon.imagen.substring(0,pokemon.imagen.indexOf(','));
+                        const imagenalt = pokemon.imagen.substring(pokemon.imagen.indexOf(',')+1,pokemon.imagen.length);
+                        console.log(imagen, imagenalt)
                         pokemonIcono.classList.add('pokemon-card', `generacion-${pokemon.generacion}`);
                         pokemonIcono.innerHTML = `
                             <h2>${pokemon.nombre}</h2>
-                            <img src=${pokemon.imagen} alt="texto alternativo" onerror="this.src='https://picsum.photos/300?random=2';"></img>
+                            
+                            <img src=${imagen} alt=${pokemon.nombre} onerror='${imagenalt}'></img>
                         `;
                         pokemonIcono.onclick = function(event) {
                             event.stopPropagation();
@@ -31,12 +35,13 @@ document.addEventListener('DOMContentLoaded', function() {
             const debilidadClase = `tipo-${debilidad.trim()}`;
                 return `<span class="${debilidadClase}">${debilidad.trim()}</span>`;
         }).join(', ');
-        
+        const imagen = pokemon.imagen.substring(0,pokemon.imagen.indexOf(','));
+        const imagenalt = pokemon.imagen.substring(pokemon.imagen.indexOf(',')+1,pokemon.imagen.length);
         DetallesPokemon.innerHTML = `
 
         <div class="detalle-flex-container">
         <div class="detalle-imagen">
-            <img src=${pokemon.imagen} alt="texto alternativo" onerror="this.src='https://picsum.photos/300?random=2';"></img>
+            <img src=${imagen} alt=${pokemon.nombre} onerror='${imagenalt}'></img>
         </div>
         <div class="detalle-info">
             <h2>${pokemon.nombre} (#${pokemon.numero_pokedex})</h2>

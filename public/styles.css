@@ -15,18 +15,21 @@
 
 body {
     background-image: url(./fondo.gif);
-    background-repeat: no-repeat;
     background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100vh;
+    min-height: 100%;
+    width: 100vw;
 }
 
 #container {
+    padding: 20px;
     display: flex;
     flex-wrap: wrap;
-    position: relative;
-    height: auto;
     justify-content: center;
-    padding: 20px;
 }
+
 
 img{
     padding-right: 30%;
@@ -99,7 +102,6 @@ img{
     max-height: 50%;
     flex: 0 0 auto;
     padding-right: 20px;
-
 }
 
 .detalle-info {
@@ -165,25 +167,36 @@ img{
 
 .pokemon-card:hover {
     cursor: pointer;
-
-
-    
 }
 #lista:hover > :not(:hover){
-
     opacity: 0.7;
     transition: 0.5s ease-in-out;
-    
-    
-    
 }
 
+@media only screen and (orientation: portrait) {
+    body {
+        background-size: cover;
+        background-position: center;
+    }
+}
+
+@media only screen and (max-width: 800px) {
+    #lista {
+        width: 100%;
+    }
+
+    .pokemon-card {
+        width: 100%;
+        margin: 5px 0;
+    }
+}
 
 .tipo-Normal, .tipo-Fuego, .tipo-Agua, .tipo-Eléctrico, .tipo-Planta, .tipo-Hielo, .tipo-Lucha, .tipo-Veneno, .tipo-Tierra, .tipo-Roca, .tipo-Volador, .tipo-Psíquico, .tipo-Bicho, .tipo-Fantasma, .tipo-Dragon, .tipo-Dragón, .tipo-Siniestro, .tipo-Acero, .tipo-Hada {
     color: white;
     padding: 3px;
     border-radius: 5px;
 }
+
 
 .tipo-Normal { background-color: #A8A77A; border: #999600 solid 2px; }
 .tipo-Fuego { background-color: #EE8130; border: #ff6f00 solid 2px; }

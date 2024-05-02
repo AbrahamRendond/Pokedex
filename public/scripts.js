@@ -9,12 +9,10 @@ document.addEventListener('DOMContentLoaded', function() {
                         const pokemonIcono = document.createElement('div');
                         const imagen = pokemon.imagen.substring(0,pokemon.imagen.indexOf(','));
                         const imagenalt = pokemon.imagen.substring(pokemon.imagen.indexOf(',')+1,pokemon.imagen.length);
-                        console.log(imagen, imagenalt)
                         pokemonIcono.classList.add('pokemon-card', `generacion-${pokemon.generacion}`);
                         pokemonIcono.innerHTML = `
                             <h2>${pokemon.nombre}</h2>
-                            
-                            <img src=${imagen} alt=${pokemon.nombre} onerror='${imagenalt}'></img>
+                            <img src=${imagen} alt=${pokemon.nombre} onerror="this.onerror=null; this.src='${imagenalt}'; this.classList.add('imagen-alt');" />
                         `;
                         pokemonIcono.onclick = function(event) {
                             event.stopPropagation();
@@ -41,7 +39,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         <div class="detalle-flex-container">
         <div class="detalle-imagen">
-            <img src=${imagen} alt=${pokemon.nombre} onerror='${imagenalt}'></img>
+            <img src=${imagen} alt=${pokemon.nombre} onerror="this.onerror=null; this.src='${imagenalt}'; this.classList.add('imagen-alt');" />
         </div>
         <div class="detalle-info">
             <h2>${pokemon.nombre} (#${pokemon.numero_pokedex})</h2>

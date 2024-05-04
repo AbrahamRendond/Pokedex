@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', function() {
         </div>
         <div class="detalle-info">
             <h2>${pokemon.nombre} (#${pokemon.numero_pokedex})</h2>
-            <img id="close"  src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAAB/ElEQVR4nO2au0oDQRSGP7RYAxYiirWgD6CgW1gqqKAvoT6E8QVyKYyl2mujhb6AsdBeREyRShAEi4hiY4wXFiJITLJnZ2dmxyU/TLfznznLtztnzyz01JNVlYGvLuMJ8A3E9Zve3WIHaxPrKsQsGFVgUGMSgVdVEDdYm1jTQF1guqcxkX1BvAYwG9U4LzAOxqqGJJaAT0GsnIq5B9wIzB+BsRhJjAIPgjgVYCDOw9cQBDmNkcixwP8DmCOmpIitK3hvCL1zaJAUsVdgMoLvOPBiGilVxC6BfsLVB5zbQkoVsSzh2rKJlCpi78AMnTUFvNlGShWxWyDT4WZcJ4VUqwpCLEp/ZsKOcG4eC5IiFuzUy7/mLQh374pJpFQRuweGgSHgzhWkVBE7bA7JtQUSkBQx6bCKlCpiTiKliljibynTiCWKlC7EnEBKB2JOINWqokIiibxuU4+Wp+Fhb1dg/guknEPMT8OG6BkoUTIuI3XgctHop6GM9yJ8WAWt0B/NNxfqDGJFISbbbeaWXEHMT0PzwRMiVdfYDsokWRRuCryySRWVvhCpC5dbpl6EJvZExCb2s03ECkIM1hS8120h5guROokR48g0Yp6lo7eRCEdvGZNIrRBfi8J2at4UUrvoU3DUrR2x1PwwUA4xqxn8haMWEvvMQNyeeqKDvgGmxjw+5jmxEQAAAABJRU5ErkJggg==">
+            <img id="close" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAAB/ElEQVR4nO2au0oDQRSGP7RYAxYiirWgD6CgW1gqqKAvoT6E8QVyKYyl2mujhb6AsdBeREyRShAEi4hiY4wXFiJITLJnZ2dmxyU/TLfznznLtztnzyz01JNVlYGvLuMJ8A3E9Zve3WIHaxPrKsQsGFVgUGMSgVdVEDdYm1jTQF1guqcxkX1BvAYwG9U4LzAOxqqGJJaAT0GsnIq5B9wIzB+BsRhJjAIPgjgVYCDOw9cQBDmNkcixwP8DmCOmpIitK3hvCL1zaJAUsVdgMoLvOPBiGilVxC6BfsLVB5zbQkoVsSzh2rKJlCpi78AMnTUFvNlGShWxWyDT4WZcJ4VUqwpCLEp/ZsKOcG4eC5IiFuzUy7/mLQh374pJpFQRuweGgSHgzhWkVBE7bA7JtQUSkBQx6bCKlCpiTiKliljibynTiCWKlC7EnEBKB2JOINWqokIiibxuU4+Wp+Fhb1dg/guknEPMT8OG6BkoUTIuI3XgctHop6GM9yJ8WAWt0B/NNxfqDGJFISbbbeaWXEHMT0PzwRMiVdfYDsokWRRuCryySRWVvhCpC5dbpl6EJvZExCb2s03ECkIM1hS8120h5guROokR48g0Yp6lo7eRCEdvGZNIrRBfi8J2at4UUrvoU3DUrR2x1PwwUA4xqxn8haMWEvvMQNyeeqKDvgGmxjw+5jmxEQAAAABJRU5ErkJggg==">
             <p>${pokemon.descripcion}</p>
             <p>Tipo: ${tipos}</p>
             <p>CP Máximo: ${pokemon.max_cp}</p>
@@ -120,3 +120,32 @@ function resetTiltEffect(e) {
 function startTiltEffect(e) {
     this.style.transition = 'transform 0.1s ease-out';
 }
+
+document.getElementById('Limpiar').addEventListener('click', function() {
+    document.getElementById('buscador').value = '';
+    BuscarPokemon();
+});
+
+//Voz a texto
+let VozRec;
+if ('webkitSpeechRecognition' in window) {
+    VozRec = new webkitSpeechRecognition();
+    VozRec.lang = 'es-ES';
+    VozRec.continuous = false;
+    VozRec.interimResults = false;
+
+    VozRec.onresult = function(event) {
+        let transcript = event.results[0][0].transcript;
+        transcript = transcript.replace(".", '');
+        document.getElementById('buscador').value = transcript;
+        BuscarPokemon();
+    };
+
+    VozRec.onerror = function(event) {
+        console.error('Error de reconocimiento de voz: ', event.error);
+    }
+}
+
+document.getElementById('Mic').addEventListener('click', function() {
+    VozRec.start();
+});

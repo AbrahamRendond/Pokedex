@@ -128,7 +128,7 @@ document.addEventListener('keydown', function(e) {
 //Funcion para buscar pokemon 
 function BuscarPokemon() {
     var entrada = document.getElementById('buscador');
-    var filtro = entrada.value.toUpperCase();
+    var filtro = (entrada.value.toUpperCase()).normalize("NFD").replace(/[\u0300-\u036f]/g, "");;
     var listaPokemon = document.getElementById('lista');
     var pokemonIcono = listaPokemon.getElementsByClassName('pokemon-card');
 
@@ -216,13 +216,13 @@ document.getElementById('ModoOscuro').addEventListener('click', function() {
 
 document.addEventListener('DOMContentLoaded', function() {
     var icon = document.getElementById('DMIcono');
-    var button = document.getElementById('ModoOscuro');
-    if (localStorage.getItem('darkMode') === 'true') {
+    var boton = document.getElementById('ModoOscuro');
+    if (localStorage.getItem('darkMode') === 'false') {
         document.body.classList.add('dark-mode');
         icon.className = 'fas fa-sun';
-        button.className = 'btn btn-light position-fixed top-0 end-0 m-3';
+        boton.className = 'btn btn-light position-fixed top-0 end-0 m-3';
     } else {
         icon.className = 'fas fa-moon';
-        button.className = 'btn btn-dark position-fixed top-0 end-0 m-3';
+        boton.className = 'btn btn-dark position-fixed top-0 end-0 m-3';
     }
 });

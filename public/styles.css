@@ -1,3 +1,29 @@
+body.dark-mode {
+    background-image: url(./fondoN.webp);
+}
+
+.dark-mode #lista, .dark-mode #buscador{
+    background-color: #0000009a;
+    border-color: #333;
+}
+
+.dark-mode #buscador {
+    color: #ffffff; /* Cambia esto por el color que prefieras */
+}
+.dark-mode #buscador::placeholder {
+    color: #c5c5c5; /* Cambia esto por el color que prefieras */
+  }
+
+.dark-mode .pokemon-card {
+    background-color: #1e1e1e;
+    border-color: #333;
+}
+
+.dark-mode .detalle-info,.dark-mode .detalle-imagen, .dark-mode #detalles{
+    background-color: #222;
+    color: #ccc;
+}
+
 #titulos {
     display: flex;
     align-items: center;
@@ -8,44 +34,73 @@
     background-position: center;
     color: transparent;
     background-clip: text;
-    font-size: 8em;
-    -webkit-text-stroke: 5px black;
+    font-size: 6em;
+    margin: -10%;
+    -webkit-text-stroke: 2px black;
 }
 
 body {
-    background-image: url(./fondo.gif);
-    background-repeat: no-repeat;
+    background-image: url(./fondo.webp);
     background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100vh;
+    min-height: 100%;
+    width: 100vw;
 }
 
-#container {
+.container-fluid {
+    padding: 20px;
     display: flex;
     flex-wrap: wrap;
-    position: relative;
-    height: auto;
     justify-content: center;
-    padding: 20px;
 }
 
-img{
-    padding-right: 30%;
-    width: auto;
-    height: auto;
+img {
     max-width: 100%;
-    max-height: 100%;
+    height: 100%;
+}
+
+h2 {
+    font-size: 1px;
+    height: 0;
+    padding: 0;
+    margin: 0;
 }
 
 #buscador {
     padding: 10px;
     margin: 10px;
-    width: 95%;
+    width: 100%;
+}
+#Limpiar, #Mic {
+    cursor: pointer;
+    border: none;
+    background: none;
+    outline: none;
+    position: absolute;
+    right: 10px;
+    top: 0;
+    bottom: 0;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+}
+#Mic {
+    top: -4%;
+    margin-right: 1.3568%;
+}
+#Mic img {
+    color: transparent;
+    max-height: 65%;
 }
 
 #lista {
     width: 50%;
     overflow-y: scroll;
     overflow-x: hidden;
-    height: calc(100vh - 250px);
+    height: calc(100vh - 200px);
     padding: 10px;
     background-color: rgba(255, 255, 255, 0.8);
     border-radius: 10px;
@@ -53,33 +108,66 @@ img{
     margin: 20px;
     position: absolute;
     left: 23%;
-    border: 5px solid white;
+    border: 2px solid white;
     display: flex;
     flex-wrap: wrap;
     align-items: flex-start;
     justify-content: space-around;
     perspective: 1000px;
-
+}
+#lista:hover > :not(:hover){
+    opacity: 0.7;
+    transition: 0.5s ease-in-out;
 }
 
-.generacion-g1 {
+.generacion-1 {
     border: 2px solid #1e9c12;
-    border-radius: 5px;
-    box-shadow: 2px 2px 5px #1e9c12(0, 0, 0, 0.2);
+    border-radius: 2px;
+    box-shadow: 5px 5px 5px rgba(30, 156, 18, 0.2);
 }
-.generacion-g2 {
-    border: 2px solid #fc0000;
-    border-radius: 5px;
-    box-shadow: 2px 2px 5px #fc0000(0, 0, 0, 0.2);
+.generacion-2 {
+    border: 2px solid #a890f0;
+    border-radius: 2px;
+    box-shadow: 5px 5px 5px rgba(168, 144, 240, 0.2);
+}
+.generacion-3 {
+    border: 2px solid #f85888;
+    border-radius: 2px;
+    box-shadow: 5px 5px 5px rgba(248, 88, 136, 0.2);
+}
+.generacion-4 {
+    border: 2px solid #6890f0;
+    border-radius: 2px;
+    box-shadow: 5px 5px 5px rgba(104, 144, 240, 0.2);
+}
+.generacion-5 {
+    border: 2px solid #78c850;
+    border-radius: 2px;
+    box-shadow: 5px 5px 5px rgba(120, 200, 80, 0.2);
+}
+.generacion-6 {
+    border: 2px solid #f08030;
+    border-radius: 2px;
+    box-shadow: 5px 5px 5px rgba(240, 128, 48, 0.2);
+}
+.generacion-7 {
+    border: 2px solid #7038f8;
+    border-radius: 2px;
+    box-shadow: 5px 5px 5px rgba(112, 56, 248, 0.2);
+}
+.generacion-8 {
+    border: 2px solid #98d8d8;
+    border-radius: 2px;
+    box-shadow: 5px 5px 5px rgba(152, 216, 216, 0.2);
 }
 
 #detalles {
     font-family: sans-serif;
     font-size: large;
-    width: 50%;
     padding-left: 20px;
     position: absolute;
-    right: 24.6%;
+    top: 0;
+    right: 26%;
     background-color: rgb(226, 224, 221);
     margin-top: 3%;
     border-radius: 10px;
@@ -90,21 +178,19 @@ img{
     display: flex;
     align-items: center;
 }
-
-.detalle-imagen {
-    width: auto;
-    height: auto;
-    max-width: 50%;
-    max-height: 50%;
-    flex: 0 0 auto;
-    padding-right: 20px;
-
+img.imagen-alt{
+    min-width: 100%;
+    height: 100%;
 }
-
-.detalle-info {
+.detalle-imagen {
+    width: 100%;
+    min-height: 100%;
     flex: 1;
 }
-
+.detalle-info {
+    width: 100%;
+    flex: 1;
+}
 #detalles:hover{
     transform: perspective(250px)
     translateY(-5%)
@@ -120,26 +206,33 @@ img{
     background-image: 
     linear-gradient(
         to bottom,
-        transparent 10%,
-        rgba(0, 0, 0, 0.171) 50%,
-        rgba(0, 0, 0, 0.274) 95%
+        transparent 1%,
+        rgba(0, 0, 0, 0.137) 90%,
+        rgba(0, 0, 0, 0.171) 100%
     );
     opacity: 0;
     transition: all .3s ease;
 }
+
+#pokemonChart {
+    width: 100%;
+    height: auto;
+    min-height: 400px;
+}
+
 #close{
     position: absolute;
     top: 0;
     left: 85.76543%;
+    width:fit-content;
     height: 50px;
-    width: 50px;
-    scale: 0.5;
+    cursor: pointer;
+    scale: 0.48;
 }
 #close:hover{
     filter: drop-shadow(10px 100px 100px black);
-    scale:0.52;
-    
-    transition: 0.5s ease;
+    scale:0.55;
+    transition: all 0.5s ease-in-out;
 }
 
 #detalles:hover::before{
@@ -151,7 +244,7 @@ img{
     height: 30%;
     padding: 10px;
     background-color: #f9f9f9;
-    display: flex;
+    text-align: center;
     align-items: center;
     justify-content: center;
     background-size: cover;
@@ -161,40 +254,83 @@ img{
     transform: rotateX(0) rotateY(0) scale(1);
     transform-style: preserve-3d;
 }
-
 .pokemon-card:hover {
     cursor: pointer;
-    
-}
-#lista:hover > :not(:hover){
-
-    opacity: 0.6;
-    transition: 0.5s ease;
-    
-    
-    
-}
-#lista::before{
-
-    opacity: 0.6;
-    transition: 0.5s ease;
-    
-    
-    
 }
 
+@media only screen and (orientation: portrait) {
+    body {
+        background-size: cover;
+        background-position: center;
+    }
+}
 
-.tipo-Normal, .tipo-Fuego, .tipo-Agua, .tipo-Eléctrico, .tipo-Planta, .tipo-Hielo, .tipo-Lucha, .tipo-Veneno, .tipo-Tierra, .tipo-Roca, .tipo-Volador, .tipo-Psíquico, .tipo-Bicho, .tipo-Fantasma, .tipo-Dragon, .tipo-Dragón, .tipo-Siniestro, .tipo-Acero, .tipo-Hada {
+@media only screen and (max-width: 800px) {
+
+    #titulos{font-size: 0%;}
+
+    #lista{
+        width: 98%;
+        height: 98%;
+        left: 0;
+        right: 0;
+        margin: 10px 0;
+    }
+
+    #detalles{
+        width: 100%;
+        right: 0;
+    }
+    #detalles:hover{
+        transform: perspective(250px)
+        translateY(0)
+        translateZ(0);
+    }
+    .detalle-imagen {
+        width: 0%;
+        height: 0%;
+    }
+    #detalles::before{
+        background-image: 
+        linear-gradient(
+            to bottom,
+            transparent 0%,
+            rgba(0, 0, 0, 0) 0%,
+            rgba(0, 0, 0, 0) 0%
+        );
+        opacity: 0;
+        transition: all .3s ease;
+    }
+
+    #pokemonChart {
+        min-height: 250px;
+    }
+
+    #close{
+        left: 80.76543%;
+    }
+
+    .pokemon-card{
+        width: 100%;
+        height: 25%;
+    }
+
+    .container-fluid {
+        padding: 0;
+    }
+}
+
+.tipo-Normal, .tipo-Fuego, .tipo-Agua, .tipo-Eléctrico, .tipo-Planta, .tipo-Hierba, .tipo-Hielo, .tipo-Lucha, .tipo-Veneno, .tipo-Tierra, .tipo-Roca, .tipo-Volador, .tipo-Psíquico, .tipo-Bicho, .tipo-Fantasma, .tipo-Dragon, .tipo-Dragón, .tipo-Siniestro, .tipo-Acero, .tipo-Hada {
     color: white;
     padding: 3px;
-    border-radius: 5px;
+    border-radius: 2px;
 }
 
 .tipo-Normal { background-color: #A8A77A; border: #999600 solid 2px; }
 .tipo-Fuego { background-color: #EE8130; border: #ff6f00 solid 2px; }
 .tipo-Agua { background-color: #6390F0; border: #0051ff solid 2px; }
 .tipo-Eléctrico { background-color: #F7D02C; border: #ffcc00 solid 2px; }
-.tipo-Planta { background-color: #7AC74C; border: #5eff00 solid 2px; }
+.tipo-Planta, .tipo-Hierba { background-color: #7AC74C; border: #5eff00 solid 2px; }
 .tipo-Hielo { background-color: #96D9D6; border: #00fff2 solid 2px; }
 .tipo-Lucha { background-color: #C22E28; border: #ff0800 solid 2px; }
 .tipo-Veneno { background-color: #A33EA1; border: #b402b1 solid 2px; }

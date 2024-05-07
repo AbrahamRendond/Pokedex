@@ -173,13 +173,30 @@ document.getElementById('Limpiar').addEventListener('click', function() {
     BuscarPokemon();
 });
 
-//Voz a texto
 let VozRec;
+let grabando = false; // Estado de grabación
+
+// Función para cambiar el ícono del micrófono según el estado de grabación y el modo oscuro
+function cambiarIconoMic(grabando) {
+    var iconMic = document.getElementById('iconMic');
+    var esModoOscuro = document.body.classList.contains('dark-mode');
+    if (grabando) {
+        iconMic.src = esModoOscuro ? './icons8-audio.gif' : './icons8-audio.gif';
+    } else {
+        iconMic.src = esModoOscuro ? 'https://img.icons8.com/color/40/microphone.png' : 'https://img.icons8.com/ios/40/microphone.png';
+    }
+}
+
 if ('webkitSpeechRecognition' in window) {
     VozRec = new webkitSpeechRecognition();
     VozRec.lang = 'es-ES';
     VozRec.continuous = false;
     VozRec.interimResults = false;
+
+    VozRec.onstart = function() {
+        grabando = true;
+        cambiarIconoMic(grabando);
+    };
 
     VozRec.onresult = function(event) {
         let transcript = event.results[0][0].transcript;
@@ -190,25 +207,37 @@ if ('webkitSpeechRecognition' in window) {
 
     VozRec.onerror = function(event) {
         console.error('Error de reconocimiento de voz: ', event.error);
-    }
+    };
+
+    VozRec.onend = function() {
+        grabando = false;
+        cambiarIconoMic(grabando);
+    };
 }
 
 document.getElementById('Mic').addEventListener('click', function() {
-    VozRec.start();
+    if (!grabando) {
+        VozRec.start();
+    } else {
+        VozRec.stop();
+    }
 });
 
-//Modo escuro
+// Código para el modo oscuro
 document.getElementById('ModoOscuro').addEventListener('click', function() { 
     var body = document.body;
     var icon = document.getElementById('DMIcono');
+    var iconMic = document.getElementById('iconMic');
     body.classList.toggle('dark-mode');
 
     if (body.classList.contains('dark-mode')) {
         icon.className = 'fas fa-sun';
         this.className = 'btn btn-light position-fixed top-0 end-0 m-3';
+        cambiarIconoMic(grabando);
     } else {
         icon.className = 'fas fa-moon';
         this.className = 'btn btn-dark position-fixed top-0 end-0 m-3';
+        cambiarIconoMic(grabando);
     }
 
     localStorage.setItem('darkMode', body.classList.contains('dark-mode'));
@@ -217,12 +246,15 @@ document.getElementById('ModoOscuro').addEventListener('click', function() {
 document.addEventListener('DOMContentLoaded', function() {
     var icon = document.getElementById('DMIcono');
     var boton = document.getElementById('ModoOscuro');
-    if (localStorage.getItem('darkMode') === 'false') {
+    var iconMic = document.getElementById('iconMic');
+    if (localStorage.getItem('darkMode') === 'true') {
         document.body.classList.add('dark-mode');
         icon.className = 'fas fa-sun';
         boton.className = 'btn btn-light position-fixed top-0 end-0 m-3';
+        cambiarIconoMic(grabando);
     } else {
         icon.className = 'fas fa-moon';
         boton.className = 'btn btn-dark position-fixed top-0 end-0 m-3';
+        cambiarIconoMic(grabando);
     }
 });

@@ -1,48 +1,73 @@
+// Agrega un evento que se ejecuta cuando el contenido del DOM ha sido completamente cargado
 document.addEventListener('DOMContentLoaded', function() {
     const ListaPokemon = document.getElementById('lista');
 
+    // Realiza una solicitud al servidor para obtener los datos de los Pokémon
     fetch('http://localhost:3000/pokedex')
     .then(response => response.json())
     .then(pokemonLista => {
         pokemonLista.forEach(pokemon => {
             // Separando las URLs de las imágenes
             const [gifUrl, pngUrl] = pokemon.imagen.split(',');
-
+            
+            // Crea una tarjeta para cada Pokémon y añade la interactividad
             const pokemonCard = document.createElement('div');
             pokemonCard.className = 'col-sm-6 col-md-4 col-lg-3 mb-4';
 
             // Asignar clase de borde según la generación
             let borderClass = `generacion-${pokemon.generacion}`;
+
+            // Contenido HTML de la tarjeta, incluyendo imágenes y nombres
             pokemonCard.innerHTML = `
                 <div class="${borderClass}" id="pokemon-card" data-bs-toggle="modal" data-bs-target="#pokemonModal">
                     <img src="${gifUrl}" onerror="this.src='${pngUrl}'" class="card-img-top" alt="${pokemon.nombre}">
                     <div class="card-body">
-                        <h5 class="card-title">${pokemon.nombre}</h5>
+                        <h5 class="card-title d-none d-sm-block" >${pokemon.nombre}</h5>
                     </div>
                 </div>
             `;
+
+            // Añade un evento de clic a cada tarjeta para mostrar más detalles
             pokemonCard.addEventListener('click', function() {
                 Actualizar(pokemon);
             });
+
+            // Añade la tarjeta al contenedor principal
             document.getElementById('lista').appendChild(pokemonCard);
+
+            // Añade el efecto de inclinacion a la tarjeta
+            agregarEfectoInclinacion(pokemonCard);
+            
         });
     })
     .catch(error => console.error('Error:', error));
 
+    // Función para mostrar detalles de un Pokémon en un modal
     function Actualizar(pokemon) {
 
+        // Separa los tipos para usar un estilo diferente en cada uno
         const tipos = pokemon.tipo.split(',').map(tipo => {
             const tipoClase = `tipo-${tipo.trim()}`;
             return `<span class="${tipoClase}">${tipo.trim()}</span>`;
         }).join(' ');
+
+        // Separa las debilidades para usar un estilo diferente en cada uno
         const debilidades = pokemon.debilidades.split(',').map(debilidad => {
             const debilidadClase = `tipo-${debilidad.trim()}`;
                 return `<span class="${debilidadClase}">${debilidad.trim()}</span>`;
         }).join(' ');
 
         const [gifUrl, pngUrl] = pokemon.imagen.split(',');
+
+        // Actualiza el contenido del modal con los detalles del Pokémon seleccionado
         const modalBody = document.querySelector('#pokemonModal .modal-body');
         modalBody.innerHTML = `
+
+            <div class="modal-header">
+                <h5 class="modal-title" id="pokemonModalLabel">#${pokemon.numero_pokedex} ${pokemon.nombre}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
             <div class="detalle-flex-container">
             <div class="detalle-imagen">
                 <img src="${gifUrl}" onerror="this.src='${pngUrl}'" alt="${pokemon.nombre}">
@@ -52,12 +77,15 @@ document.addEventListener('DOMContentLoaded', function() {
                 <p>Tipo: ${tipos}</p>
                 <p>Debilidades: ${debilidades}</p>
                 <p>Generacion: ${pokemon.generacion}</p>
-                <div id="pokemonChart" style="height: 400px;"></div>
+                <div id="pokemonChart"></div>
             </div>
             </div>
         `;
-
+        
+        // Inicia el elemento de las graficas referenciando a un div y lo guarda en una variable 
         var myChart = echarts.init(document.getElementById('pokemonChart'));
+        
+        // Define las estadisticas de la grafica 
         var option = {
             tooltip: {},
             radar: {
@@ -78,6 +106,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 }]
             }]
         };
+
+        // Aplica las estadisticas de la grafica y las aplica al div de esta
         myChart.setOption(option);
         $('#pokemonModal').on('shown.bs.modal', function () {
             var myChart = echarts.init(document.getElementById('pokemonChart'));
@@ -86,18 +116,13 @@ document.addEventListener('DOMContentLoaded', function() {
         
     }
 
-    document.querySelectorAll('.card').forEach(card => {
-        card.addEventListener('mousemove', tiltEffect);
-        card.addEventListener('mouseleave', resetTiltEffect);
-    });
-
 });
 
 //Funcion para buscar pokemon 
 function BuscarPokemon() {
     var entrada = document.getElementById('buscador').value.toUpperCase();
     var lista = document.getElementById('lista');
-    var tarjetas = lista.querySelectorAll('.col-sm-6.col-md-4.col-lg-3.mb-4'); // Asegúrate de que este selector sea correcto
+    var tarjetas = lista.querySelectorAll('.col-sm-6.col-md-4.col-lg-3.mb-4');
 
     for (var i = 0; i < tarjetas.length; i++) {
         var titulo = tarjetas[i].querySelector('.card-title').textContent.toUpperCase();
@@ -109,22 +134,44 @@ function BuscarPokemon() {
     }
 }
 
-//Funcion para efecto de carta
-function tiltEffect(e) {
-    const card = e.currentTarget;
-    const rect = card.getBoundingClientRect();
-    const mouseX = e.clientX - rect.left - rect.width / 2;
-    const mouseY = e.clientY - rect.top - rect.height / 2;
-
-    const rotateX = mouseY / rect.height * 10; // Máximo 10 grados de rotación en X
-    const rotateY = mouseX / rect.width * -10; // Máximo 10 grados de rotación en Y
-
-    card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+//funcion que escucha del mouse y aplica la funcion de elevacion correspondiente al estado del mouse
+function agregarEfectoInclinacion(card) {
+    card.addEventListener('mousemove', tiltEffect);
+    card.addEventListener('mouseleave', resetTiltEffect);
+    card.addEventListener('mouseenter', startTiltEffect);
 }
 
+//Funcion aplicable cuando el mouse esta en la tarjeta
+function tiltEffect(e) {
+    const rect = this.getBoundingClientRect();
+    const x = e.clientX - rect.left - rect.width / 2;
+    const y = e.clientY - rect.top - rect.height / 2;
+
+    const maxAngle = 15;
+    const maxParallax = 15;
+
+    const tiltX = (y / rect.height) * maxAngle * 2;
+    const tiltY = (x / rect.width) * maxAngle * -2;
+    
+    const parallaxX = (x / rect.width) * maxParallax;
+    const parallaxY = (y / rect.height) * maxParallax;
+
+    this.style.transform = `rotateX(${tiltX}deg) rotateY(${tiltY}deg) scale(1.08)`;
+    this.querySelector('.card-img-top').style.transform = `translate(${parallaxX}px, ${parallaxY}px)`;
+    this.querySelector('.card-title').style.transform = `translate(${parallaxX}px, ${parallaxY}px)`;
+
+    this.style.transition = 'transform 0.1s ease-out';
+}
+
+//Funcion aplicable cuando el mouse sale de la tarjeta
 function resetTiltEffect(e) {
-    const card = e.currentTarget;
-    card.style.transform = 'rotateX(0) rotateY(0)';
+    this.style.transform = 'rotateX(0deg) rotateY(0deg) scale(1)';
+    this.querySelector('.card-img-top').style.transform = 'translate(0, 0)';
+}
+
+//Funcion aplicable cuando el mouse entra en la tarjeta
+function startTiltEffect(e) {
+    this.style.transition = 'transform 0.1s ease-out';
 }
 
 //Limpiar contenedor de texto
@@ -179,12 +226,12 @@ if ('webkitSpeechRecognition' in window) {
 document.getElementById('Mic').addEventListener('click', function() {
     if (!grabando) {
         VozRec.start();
-    } else {
+    } else if (grabando) {
         VozRec.stop();
     }
 });
 
-// Código para el modo oscuro
+//Función para el modo oscuro
 document.getElementById('ModoOscuro').addEventListener('click', function() { 
     var body = document.body;
     var icon = document.getElementById('DMIcono');
@@ -204,6 +251,7 @@ document.getElementById('ModoOscuro').addEventListener('click', function() {
     localStorage.setItem('darkMode', body.classList.contains('dark-mode'));
 });
 
+//Funcion para guardar el modo de color seleccionado ateriormente
 document.addEventListener('DOMContentLoaded', function() {
     var icon = document.getElementById('DMIcono');
     var boton = document.getElementById('ModoOscuro');

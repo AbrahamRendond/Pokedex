@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const ListaPokemon = document.getElementById('lista');
 
     // Realiza una solicitud al servidor para obtener los datos de los Pokémon
-    fetch('http://localhost:3000/pokedex')
+    fetch(`${window.location.origin}/pokedex`)
     .then(response => response.json())
     .then(pokemonLista => {
         pokemonLista.forEach(pokemon => {

@@ -1,6 +1,6 @@
 // Importación de módulos necesarios
 const express = require('express');
-const mysql = require('mysql');
+const mysql = require('mysql2');
 
 // Creación de una nueva aplicación Express
 const app = express();
